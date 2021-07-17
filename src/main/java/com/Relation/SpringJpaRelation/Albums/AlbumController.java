@@ -1,5 +1,5 @@
 package com.Relation.SpringJpaRelation.Albums;
-//
+
 import com.Relation.SpringJpaRelation.Songs.Song;
 import com.Relation.SpringJpaRelation.Songs.SongRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,41 +28,25 @@ public class AlbumController {
         model.addAttribute("albums", albumRepository.findAll());
         return "index";
     }
+
     @GetMapping("/albums")
     public String getalbum(Model model){
-
         model.addAttribute("albums", albumRepository.findAll());
         return "albums";
     }
 
-    //    @GetMapping("/")
-//    public String getAlbums(Model model){
-//        model.addAttribute("albums",albumRepository.findAll());
-//        return "albums";
-//    }
-//    @PostMapping("/albums")
-//    public RedirectView createAlbum(@RequestParam String album_title,
-//                                    @RequestParam String album_artist,
-//                                    @RequestParam String album_duration,
-//                                    @RequestParam String album_img,
-//                                    @RequestParam int album_length){
-//        Album albumModel = new Album(album_title,album_artist,album_duration,album_img,album_length);
-//        albumRepository.save(albumModel);
-//        return new RedirectView("/albums");
-//
-//    }
     @PostMapping("/albums")
-    public ResponseEntity<Album> createAlbum(@RequestParam String album_title,
-                                      @RequestParam String album_artist,
-                                      @RequestParam String album_duration,
-                                      @RequestParam String album_img,
-                                      @RequestParam int album_length, Model model){
+    public RedirectView createAlbum(@RequestParam String album_title,
+                                    @RequestParam String album_artist,
+                                    @RequestParam String album_duration,
+                                    @RequestParam String album_img,
+                                    @RequestParam int album_length){
         Album albumModel = new Album(album_title,album_artist,album_duration,album_img,album_length);
-        Album saved=  albumRepository.save(albumModel);
-        model.addAttribute("albums",saved);
-        return new ResponseEntity<>(saved, HttpStatus.CREATED);
+        albumRepository.save(albumModel);
+        return new RedirectView("/albums");
 
     }
+
     @RequestMapping(value="/album/song/{id}",method= RequestMethod.GET)
     public String getAlbum(Model model, @PathVariable (value ="id") Long id){
         Album album = albumRepository.getById(id);

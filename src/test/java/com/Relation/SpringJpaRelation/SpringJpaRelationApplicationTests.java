@@ -40,10 +40,8 @@ class SpringJpaRelationApplicationTests {
 	private SongRepository songRepository;
 	@Autowired
 	private AlbumRepository albumRepository;
-//
+
 	Album album= new Album("judy","mahmood","30","image1.png",44);
-
-
 
 
 	@Test
