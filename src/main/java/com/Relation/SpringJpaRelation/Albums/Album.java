@@ -5,7 +5,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-public class Album {
+public class Album{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long album_id;

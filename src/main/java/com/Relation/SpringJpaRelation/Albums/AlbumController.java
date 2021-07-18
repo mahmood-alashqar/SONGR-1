@@ -4,9 +4,11 @@ import com.Relation.SpringJpaRelation.Songs.Song;
 import com.Relation.SpringJpaRelation.Songs.SongRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -40,13 +42,26 @@ public class AlbumController {
                                     @RequestParam String album_artist,
                                     @RequestParam String album_duration,
                                     @RequestParam String album_img,
-                                    @RequestParam int album_length){
+                                    @RequestParam int album_length
+
+                                    ){
         Album albumModel = new Album(album_title,album_artist,album_duration,album_img,album_length);
         albumRepository.save(albumModel);
         return new RedirectView("/albums");
 
     }
-
+@PostMapping("/albumsTest")
+public RedirectView createAlbum (@RequestBody Album album){
+        Album savedAlbum = albumRepository.save(album);
+        return new RedirectView("/albums");
+}
+//    @RequestMapping(value = "/albums", method = RequestMethod.POST,
+//            consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
+//            produces = {MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+//    public @ResponseBody  RedirectView createalbum(Album album) throws Exception {
+//        Album savedAlbum = albumRepository.save(album);
+//        return new RedirectView("/albums");
+//    }
     @RequestMapping(value="/album/song/{id}",method= RequestMethod.GET)
     public String getAlbum(Model model, @PathVariable (value ="id") Long id){
         Album album = albumRepository.getById(id);
