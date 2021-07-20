@@ -46,6 +46,11 @@ public class AlbumController {
         return new RedirectView("/albums");
 
     }
+    @PostMapping("/albumsTest")
+public RedirectView createAlbum (@RequestBody Album album){
+        Album savedAlbum = albumRepository.save(album);
+        return new RedirectView("/albums");
+}
 
     @RequestMapping(value="/album/song/{id}",method= RequestMethod.GET)
     public String getAlbum(Model model, @PathVariable (value ="id") Long id){
