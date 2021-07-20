@@ -53,11 +53,12 @@ class SpringJpaRelationApplicationTests {
 
 	@Test
 	public void testPostAlbum() throws Exception{
-		mockMvc.perform(post("/albums")
+		mockMvc.perform(post("/albumsTest")
 		.contentType("application/json")
-		.content(objectMapper.writeValueAsString(album)))
-		.andReturn();
-		Assertions.assertTrue(album.getAlbum_title()=="judy");
+		.content(objectMapper.writeValueAsString( album)))
+		.andExpect(redirectedUrl("/albums"));
+		Album foundAlbum = albumRepository.findById(1L).orElseThrow();
+		Assertions.assertEquals(album.getAlbum_artist(),foundAlbum.getAlbum_artist());
 
 	}
 
