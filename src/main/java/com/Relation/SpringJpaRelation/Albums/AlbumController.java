@@ -35,18 +35,18 @@ public class AlbumController {
         return "albums";
     }
 
-    @PostMapping("/albums")
-    public RedirectView createAlbum(@RequestParam String album_title,
-                                    @RequestParam String album_artist,
-                                    @RequestParam String album_duration,
-                                    @RequestParam String album_img,
-                                    @RequestParam int album_length){
-        Album albumModel = new Album(album_title,album_artist,album_duration,album_img,album_length);
-        albumRepository.save(albumModel);
-        return new RedirectView("/albums");
+//     @PostMapping("/albums")
+//     public RedirectView createAlbum(@RequestParam String album_title,
+//                                     @RequestParam String album_artist,
+//                                     @RequestParam String album_duration,
+//                                     @RequestParam String album_img,
+//                                     @RequestParam int album_length){
+//         Album albumModel = new Album(album_title,album_artist,album_duration,album_img,album_length);
+//         albumRepository.save(albumModel);
+//         return new RedirectView("/albums");
 
-    }
-    @PostMapping("/albumsTest")
+//     }
+    @PostMapping("/albums")
 public RedirectView createAlbum (@RequestBody Album album){
         Album savedAlbum = albumRepository.save(album);
         return new RedirectView("/albums");
